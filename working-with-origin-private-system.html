@@ -1,0 +1,27 @@
+<script>
+  var onClick = async () => {
+    const opfsRoot = await navigator.storage.getDirectory();
+    const fileHandle = await opfsRoot.getFileHandle("todo.txt", {
+      create: true,
+    });
+    const node = document.getElementById("name");
+    const contents = node.value;
+    const writable = await fileHandle.createWritable();
+    await writable.write(contents);
+    await writable.close();
+  };
+
+  const getTodo = async () => {
+    const opfsRoot = await navigator.storage.getDirectory();
+    const fileHandle = await opfsRoot.getFileHandle("todo.txt");
+
+    const file = await fileHandle.getFile();
+    var ptag = document.createElement("p");
+    ptag.innerHTML = await file.text();
+    ptag.style = "width:600px;height:600px;border:2px solid red;";
+    document.body.appendChild(ptag);
+  };
+</script>
+
+<input type="text" name="todo" id="name" />
+<button onclick="onClick()">submit</button>
