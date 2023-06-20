@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload and Download Example</title>
+    <script>
+      function handleFile(event) {
+        var file = event.target.files[0];
+        // Perform modifications on the file (Example: appending "Modified" to the content)
+        var modifiedContent = file.name + " Modified";
+
+        // Create a Blob object with the modified content
+        var modifiedBlob = new Blob([modifiedContent], { type: file.type });
+
+        // Create a temporary URL for the modified file
+        var url = URL.createObjectURL(modifiedBlob);
+
+        // Programmatically create a link and trigger the download
+        var downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = file.name;
+
+        // Trigger the download by programmatically clicking the link
+        downloadLink.click();
+
+        // Clean up the temporary URL object
+        URL.revokeObjectURL(url);
+      }
+    </script>
+  </head>
+  <body>
+    <input type="file" onchange="handleFile(event)" />
+  </body>
+</html>
