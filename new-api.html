@@ -1,0 +1,27 @@
+<script>
+  // create a reference for our file handle
+  const pickerOpts = {
+    types: [
+      {
+        description: "Images",
+        accept: {
+          "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+        },
+      },
+    ],
+    excludeAcceptAllOption: true,
+    multiple: false,
+  };
+
+  let fileHandle;
+
+  async function getFile() {
+    // open file picker, destructure the one element returned array
+    [fileHandle] = await window.showOpenFilePicker();
+    fileHandle.getFile();
+    debugger;
+
+    // run code with our fileHandle
+  }
+</script>
+<input type="file" onchange="getFile()" />
